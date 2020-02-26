@@ -1,0 +1,17 @@
+<html>
+<head>
+<h>Reverse</h><br><br>
+<button onclick="myFunction()">Try</button>
+<p id="test"></p>
+<script type="text/javascript">
+var fruits=["Banana", "Apple", "Watermelon", "Lemon"];
+document.getElementById("test").innerHTML=fruits;
+
+function myFunction() {
+	fruits.sort();
+	fruits.reverse();
+	document.getElementById("test").innerHTML=fruits;
+}
+</script>
+</body>
+</html>

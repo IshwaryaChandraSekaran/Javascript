@@ -1,0 +1,17 @@
+<html>
+<head>
+<script type="text/javascript">
+function greater(){
+	a=Number(document.getElementById("t1").value);
+	if(a==Math.random()*10)
+		document.write("Matched");
+	else
+		document.write("Not matched");
+}
+</script>
+</head>
+<body>
+Guess a number :&nbsp&nbsp<input type="text" id="t1">
+<input type="button" value="Check" onclick=greater()>
+</body>
+</html>

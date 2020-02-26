@@ -1,0 +1,24 @@
+<html>
+<head>
+<script type="text/javascript">
+function greater(){
+	a=Number(document.getElementById("t1").value);
+	b=Number(document.getElementById("t2").value);
+	if(a>b){
+		a=a+b;
+		b=a-b;
+		a=a-b;}
+	else
+	{	b=b+a;
+		a=b-a;
+		b=b-a;}
+	document.write(a+" " +b);
+}
+</script>
+</head>
+<body>
+Enter the number :&nbsp&nbsp<input type="text" id="t1">
+Enter the number :&nbsp&nbsp<input type="text" id="t2">
+<input type="button" value="Check" onclick=greater()>
+</body>
+</html>

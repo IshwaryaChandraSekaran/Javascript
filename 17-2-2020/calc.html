@@ -1,0 +1,42 @@
+<html>
+<head>
+<h1>Calculator</h1>
+<body>
+<form><br>
+Number1<br><input type="text" id="1stNumber"/><br><br>
+Number2<br><input type="text" id="2ndNumber"/><br><br>
+<input type="button" onclick="addBy()" value="Addition"/><br><br>
+<input type="button" onclick="subBy()" value="Subtraction"/><br><br>
+<input type="button" onclick="multiplyBy()" value="Multiplication"/><br><br>
+<input type="button" onclick="divBy()" value="Division"/><br>
+</form>
+<p>Result is:</p>
+<p id="result"></p>
+<script type="text/javascript">
+function addBy(){
+	num1=Number(document.getElementById("1stNumber").value);
+	num2=Number(document.getElementById("2ndNumber").value);
+document.getElementById("result").innerHTML=num1+num2;
+}
+
+function subBy(){
+	num1=document.getElementById("1stNumber").value;
+	num2=document.getElementById("2ndNumber").value;
+document.getElementById("result").innerHTML=num1-num2;
+}
+
+function multiplyBy(){
+	num1=document.getElementById("1stNumber").value;
+	num2=document.getElementById("2ndNumber").value;
+document.getElementById("result").innerHTML=num1*num2;
+}
+
+function divBy(){
+	num1=document.getElementById("1stNumber").value;
+	num2=document.getElementById("2ndNumber").value;
+document.getElementById("result").innerHTML=num1/num2;
+}
+</script>
+</body>
+</head>
+</html>

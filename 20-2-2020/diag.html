@@ -1,0 +1,21 @@
+<html>
+<head>
+<script type="text/javascript">
+function diag(){
+	var a=[[1,0,0],[0,2,0],[0,0,3]],i=0,j=0,flag=0;
+	for(i=0;i<3;i++){
+	for(j=0;j<3;j++){
+		if(i!=j && a[i][j]!=0)
+			flag=1;
+}}
+if(flag==0)
+	document.write("Diagonal matrix");
+else
+	document.write("Not a diagonal matrix");			
+}
+</script>
+</head>
+<body>
+<input type="button" value="Check" onclick=diag()>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<html>
+<head>
+<h2>Callback</h2>
+</head>
+<body>
+<script>
+function modifyArray(arr, callback) {
+	arr.push(100);
+  	  callback();
+}
+var arr = [1, 2, 3, 4, 5];
+
+modifyArray(arr, function() {
+  document.write("array has been modified", arr);
+});
+</script>
+</body>
+</html>

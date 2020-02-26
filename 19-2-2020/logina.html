@@ -1,0 +1,50 @@
+<html>
+
+<head><b>LOGIN PAGE</b>
+    <script>
+        function verify() {
+            if ((document.getElementById("txt1").value) == "") {
+                window.alert(" Write something");
+                document.getElementById("txt1").focus();
+                return false;
+            }
+            var pass = /^[A-Z][a-z]\w{7,14}$/;
+            if (!document.getElementById("txt").value.match(pass)) {
+                window.alert("password doesn't meet the criteria");
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+
+<body>
+    <form name="myform" action="/action_page.php" onsubmit="return verify()">
+        <table>
+            <tr>
+                <td>
+                    Username:
+                </td>
+
+                <td>
+                    <input type="text" id="txt1" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Password:
+                </td>
+                <td>
+                    <input type="password" id="txt" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Submit">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

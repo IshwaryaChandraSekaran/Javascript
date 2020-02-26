@@ -1,0 +1,61 @@
+<html>
+<head>
+<script type="text/javascript">
+function validateForm() {
+    'use strict';
+var email = document.getElementById('email');
+    var password = document.getElementById('password');
+
+    /// Validate the login
+    if ((email.value.length > 0) && (password.value.length > 0)) {
+        return true;
+    } else {
+        alert('Please complete the form!');
+        return false;
+    }
+}
+
+function check(form) {
+
+    var emailArray = ("myemail@live.com", "");
+    var passwordArray = ("MyLogIn", "");
+
+    if (email.value == "email" && password.value == "password") {
+        window.open('myaccount.html');
+    } else {
+        alert('Please enter correct username or password!');
+        return false;
+    }   
+}
+function init() {
+    'use strict';
+
+    // Confirm that document.getElementById() can be used:
+    if (document && document.getElementById) {
+        var loginForm = document.getElementById('lgform');
+        loginForm.onsubmit = validateForm;
+    }
+}
+window.onload = init;
+</script>
+<form action="" method="post" id="lgform">
+    <fieldset>
+        <legend>Login</legend>
+        <div>
+            <label for="email">Email Address</label>
+            <input type="email" name="email" id="email" required>
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" required>
+        </div>
+        <div>
+            <label for="submit"></label>
+            <input type="submit" value="Login" id="submit">
+        </div>
+    </fieldset>
+</form>
+<body>
+</body>
+</head>
+</html>

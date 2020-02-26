@@ -1,0 +1,23 @@
+<html>
+<head>
+<h2>Voting eligibility</h2>
+</head>
+<body>
+<script>
+function verify(){
+var no;
+no=Number(document.getElementById("age").value);
+if(no<18)
+{
+alert("Under 18");
+}
+else
+{
+alert("Eligible");
+}
+}
+</script>
+Enter your age:<input id="age"><br />
+<button onclick="verify()">Click me</button>
+</body>
+</html>

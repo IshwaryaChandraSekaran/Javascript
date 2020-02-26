@@ -1,0 +1,15 @@
+<html>
+<body>
+<p id="test"></p>
+<button onclick="myFunction()">Try</button>
+<script type="text/javascript">
+var fruits=["Banana", "Apple", "Watermelon", "Lemon"];
+document.getElementById("test").innerHTML=fruits;
+
+function myFunction() {
+	fruits.sort();
+	document.getElementById("test").innerHTML=fruits;
+}
+</script>
+</body>
+</html>

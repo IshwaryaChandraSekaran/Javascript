@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<title>My Example</title>
+
+
+<p id="msg"></p>
+
+<hr>
+<p>The first parameter of <code>slice()</code> is a zero-based index to specify where the extraction begins. It extracts up to (but not including) the second parameter.</p>
+<script>
+    var cities = ["Tokyo", "Auckland", "Sydney", "Brisbane", "Cairns", "London"];
+    citiesAU = cities.slice(2, 5);
+    document.getElementById("msg").innerHTML = cities + "<br>" + citiesAU;
+</script>

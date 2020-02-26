@@ -1,0 +1,23 @@
+<html>
+<head>
+<h>Numeric Sort</h><br><br>
+<body>
+<button onclick="myFunction()">Try</button>
+<p id="test"></p>
+<p id="test2"></p>
+<script type="text/javascript">
+var points=[40,100,78,90,678,4,10,1];
+var set=[40,100,78,90,678,4,10,1];
+document.getElementById("test").innerHTML=points;
+document.getElementById("test2").innerHTML=set;
+
+function myFunction() {
+	points.sort(function(a,b){return a-b});
+	document.getElementById("test").innerHTML=points;
+	set.sort(function(a,b){return b-a});
+	document.getElementById("test2").innerHTML=set;
+}
+</script>
+</body>
+</head>
+</html>

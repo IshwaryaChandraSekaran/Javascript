@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <title>
+        Verify
+    </title>
+
+    <script>
+    function verify(){
+        var Regex = new RegExp("^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})");
+        var uname=document.forms["myForm"]["username"].value;
+        var pwd=document.forms["myForm"]["password"].value;
+        if(uname==""){
+            alert("Please enter your username");
+            document.forms["myForm"]["username"].focus();
+            return false;
+        }
+        if(!Regex.test(pwd)){
+            alert("password is not strong enough or does not meet the criteria");
+            document.forms["myForm"]["password"].focus();
+            return false;
+        }
+        return true;
+    }
+    </script>
+</head>
+
+<body>
+    <h1 align="center"><b>Form Verification</b></h1>
+    <form name="myForm" action="/action_page.php" onsubmit="return verify()">
+        <table>
+            <tr>
+                <td>
+                    Username:
+                </td>
+                <td>
+                    <input type="text" name="username">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Password:
+                </td>
+                <td>
+                    <input type="password" name="password">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Submit">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

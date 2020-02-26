@@ -1,0 +1,21 @@
+<html>
+<head>
+<script type="text/javascript">
+function getUrl(){
+	a=Number(document.getElementById("t1").value);
+	b=Number(document.getElementById("t2").value);
+	c=Number(document.getElementById("t3").value);
+	d=Number(document.getElementById("t4").value);
+	dist=(Math.abs(a-c)**2+Math.abs(b-d)**2)**(1/2);
+	document.write(dist);
+}
+</script>
+</head>
+<body>
+x1:<input type="text" id="t1">
+y1:<input type="text" id="t2">
+x2:<input type="text" id="t3">
+y2:<input type="text" id="t4">
+<input type="button" value="Check" onclick=getUrl()>
+</body>
+</html>

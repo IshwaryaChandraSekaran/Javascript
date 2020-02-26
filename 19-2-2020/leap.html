@@ -1,0 +1,15 @@
+<html>
+<head>
+<h2>Find Leap Year</h2>
+</head>
+<body>
+<script>
+function leapyear(year)
+{
+return (year % 100 === 0) ? (year % 400 === 0) : (year % 4 === 0);
+}
+var y=prompt("Enter the year");
+document.write(leapyear(y));
+</script>
+</body>
+</html>

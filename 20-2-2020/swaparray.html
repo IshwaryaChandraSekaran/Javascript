@@ -1,0 +1,19 @@
+<html>
+<head>
+<script type="text/javascript">
+function swap(){
+	var a=[1,2,3,4,5,6],j=a.length/2,t=0;
+	for(var i=0;i<a.length/2;i++){
+		t=a[i];
+		a[i]=a[j];
+		a[j]=t;
+		j++;
+}
+document.write(a);
+}
+</script>
+</head>
+<body>
+<input type="button" value="Click" onclick=swap()>
+</body>
+</html>

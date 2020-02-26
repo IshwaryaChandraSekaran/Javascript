@@ -1,0 +1,31 @@
+<html>
+<head>
+<h2>binary search</h2>
+</head>
+<body>
+<script>
+var a=new Array(10,20,30,40,50);
+document.write("The array is:",a);
+var first=0
+var last=a.length-1
+var search=prompt("enter value to serach:");
+while (first<=last){
+    mid=Math.floor((first+last)/2);
+    if(search<a[mid]){
+        document.write("element found",search);
+		}
+    else if(serach <a[mid]){
+        last=mid-1;
+		}
+    else if(search>a[mid]){
+        first=mid+1;
+	}
+    else{
+        document.write("not found");
+	}
+}
+</script>
+</body>
+</html>
+
+
