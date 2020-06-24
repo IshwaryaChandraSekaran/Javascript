@@ -1,0 +1,11 @@
+function timeConversion(s) {
+    var a=Number(s[0])*10+Number(s[1]);
+    if(s[8]=='P' && a<12)
+         return ((a+12)+":"+s[3]+s[4]+":"+s[6]+s[7]);
+    else if(s[8]=='A' && a<12)
+        return ("0"+a+":"+s[3]+s[4]+":"+s[6]+s[7]);
+    else if(a==12 && s[8]=='A')
+        return ("00:"+s[3]+s[4]+":"+s[6]+s[7]);
+    else
+        return (a+":"+s[3]+s[4]+":"+s[6]+s[7]);
+  }
