@@ -1,0 +1,371 @@
+<html>
+<head>
+<script type="text/javascript">
+var me=0,c=0,target=0;
+
+function resetAll(){
+	m=0;
+	c=0;
+	document.getElementById("cscore").innerHTML=0;
+	document.getElementById("uscore").innerHTML=0;
+	document.getElementById("bat").style.visibility="hidden";
+	document.getElementById("bowl").style.visibility="hidden";
+	document.getElementById("head").style.visibility="hidden";
+	document.getElementById("tail").style.visibility="hidden";
+	document.getElementById("cstr").innerHTML="";
+	document.getElementById("tgt").innerHTML="";
+	document.getElementById("0").style.visibility="hidden";
+	document.getElementById("1").style.visibility="hidden";
+	document.getElementById("2").style.visibility="hidden";
+	document.getElementById("3").style.visibility="hidden";
+	document.getElementById("4").style.visibility="hidden";
+	document.getElementById("5").style.visibility="hidden";
+	document.getElementById("6").style.visibility="hidden";
+	document.getElementById("0a").style.visibility="hidden";
+	document.getElementById("1a").style.visibility="hidden";
+	document.getElementById("2a").style.visibility="hidden";
+	document.getElementById("3a").style.visibility="hidden";
+	document.getElementById("4a").style.visibility="hidden";
+	document.getElementById("5a").style.visibility="hidden";
+	document.getElementById("6a").style.visibility="hidden";
+	document.getElementById("0b").style.visibility="hidden";
+	document.getElementById("1b").style.visibility="hidden";
+	document.getElementById("2b").style.visibility="hidden";
+	document.getElementById("3b").style.visibility="hidden";
+	document.getElementById("4b").style.visibility="hidden";
+	document.getElementById("5b").style.visibility="hidden";
+	document.getElementById("6b").style.visibility="hidden";
+	document.getElementById("0c").style.visibility="hidden";
+	document.getElementById("1c").style.visibility="hidden";
+	document.getElementById("2c").style.visibility="hidden";
+	document.getElementById("3c").style.visibility="hidden";
+	document.getElementById("4c").style.visibility="hidden";
+	document.getElementById("5c").style.visibility="hidden";
+	document.getElementById("6c").style.visibility="hidden";
+	document.getElementById("start").style.visibility="visible";
+	window.alert("Let's start to play!");
+}
+
+function startGame(){
+	document.getElementById("start").style.visibility="hidden";
+	document.getElementById("head").style.visibility="visible";
+	document.getElementById("tail").style.visibility="visible";
+}
+
+function headOrTail(val){
+	var sel=Math.floor(Math.random()*2),selArr=[1,0],choice=["bat","bowl"];
+	if(val==selArr[sel]){
+		window.alert("You won the toss! Choose to bat or bowl");
+		document.getElementById("head").style.visibility="hidden";
+		document.getElementById("tail").style.visibility="hidden";
+		document.getElementById("bat").style.visibility="visible";
+		document.getElementById("bowl").style.visibility="visible";
+		}
+	else{
+		var computer_choice=Math.floor(Math.random()*2);
+		window.alert("Computer won the toss and chose to "+choice[computer_choice]);
+		document.getElementById("head").style.visibility="hidden";
+		document.getElementById("tail").style.visibility="hidden";
+		if(computer_choice==0)
+			bowl();
+		else
+			bat();
+	}
+}
+function bat(){
+	document.getElementById("bat").style.visibility="hidden";
+	document.getElementById("bowl").style.visibility="hidden";
+	window.alert("You are on strike!!!");
+	document.getElementById("0").style.visibility="visible";
+	document.getElementById("1").style.visibility="visible";
+	document.getElementById("2").style.visibility="visible";
+	document.getElementById("3").style.visibility="visible";
+	document.getElementById("4").style.visibility="visible";
+	document.getElementById("5").style.visibility="visible";
+	document.getElementById("6").style.visibility="visible";
+}
+
+function bowl(){
+	document.getElementById("bat").style.visibility="hidden";
+	document.getElementById("bowl").style.visibility="hidden";
+	window.alert("Computer on strike!!!");
+	document.getElementById("0a").style.visibility="visible";
+	document.getElementById("1a").style.visibility="visible";
+	document.getElementById("2a").style.visibility="visible";
+	document.getElementById("3a").style.visibility="visible";
+	document.getElementById("4a").style.visibility="visible";
+	document.getElementById("5a").style.visibility="visible";
+	document.getElementById("6a").style.visibility="visible";
+}
+
+function userBat(val){
+	var str=Math.floor(Math.random()*7);
+	document.getElementById("cstr").innerHTML=str;
+	if(val!=str){
+	switch(val){
+	case 0:
+		{me+=str;
+		break;}
+	case 1:
+		{me+=1;
+		break;}
+	case 2:
+		{me+=2;
+		break;}
+	case 3:
+		{me+=3;
+		break;}
+	case 4:
+		{me+=4;
+		break;}
+	case 5:
+		{me+=5;
+		break;}
+	case 6:
+		{me+=6;
+		break;}
+	}
+	document.getElementById("uscore").innerHTML=me;
+	}
+	else{
+	target=me+1;
+	window.alert("Out!!!");
+	window.alert("Computer's target is "+target);
+	document.getElementById("tgt").innerHTML=target;
+	window.alert("Computer's turn to bat!");
+	document.getElementById("0").style.visibility="hidden";
+	document.getElementById("1").style.visibility="hidden";
+	document.getElementById("2").style.visibility="hidden";
+	document.getElementById("3").style.visibility="hidden";
+	document.getElementById("4").style.visibility="hidden";
+	document.getElementById("5").style.visibility="hidden";
+	document.getElementById("6").style.visibility="hidden";	
+	document.getElementById("0b").style.visibility="visible";
+	document.getElementById("1b").style.visibility="visible";
+	document.getElementById("2b").style.visibility="visible";
+	document.getElementById("3b").style.visibility="visible";
+	document.getElementById("4b").style.visibility="visible";
+	document.getElementById("5b").style.visibility="visible";
+	document.getElementById("6b").style.visibility="visible";
+	}
+}
+
+function userBowl(val){
+	target=me+1;
+	var str=Math.floor(Math.random()*7);
+	document.getElementById("cstr").innerHTML=str;
+	if(val!=str){
+	switch(str){
+	case 0:
+		{c+=val;
+		break;}
+	case 1:
+		{c+=1;
+		break;}
+	case 2:
+		{c+=2;
+		break;}
+	case 3:
+		{c+=3;
+		break;}
+	case 4:
+		{c+=4;
+		break;}
+	case 5:
+		{c+=5;
+		break;}
+	case 6:
+		{c+=6;
+		break;}
+	}
+	document.getElementById("cscore").innerHTML=c;
+	
+	if(c>=target){
+		window.alert("Computer wins!!!");
+		window.alert("GAME OVER");
+		resetAll();
+	}
+	}
+	else{
+	if(c<target){
+		window.alert("You won!!!");
+		window.alert("GAME OVER");
+		resetAll();
+	}
+	}
+}
+
+function compBat(val){
+	var str=Math.floor(Math.random()*7);
+	document.getElementById("cstr").innerHTML=str;
+	if(val!=str){
+	switch(str){
+	case 0:
+		{c+=val;
+		break;}
+	case 1:
+		{c+=1;
+		break;}
+	case 2:
+		{c+=2;
+		break;}
+	case 3:
+		{c+=3;
+		break;}
+	case 4:
+		{c+=4;
+		break;}
+	case 5:
+		{c+=5;
+		break;}
+	case 6:
+		{c+=6;
+		break;}
+	}
+	document.getElementById("cscore").innerHTML=c;
+	}
+	else{
+		target=c+1;
+		window.alert("Out!!!");
+		window.alert("Your target is "+target);
+		document.getElementById("tgt").innerHTML=target;
+		window.alert("Your turn to bat!");
+		document.getElementById("0a").style.visibility="hidden";
+		document.getElementById("1a").style.visibility="hidden";
+		document.getElementById("2a").style.visibility="hidden";
+		document.getElementById("3a").style.visibility="hidden";
+		document.getElementById("4a").style.visibility="hidden";
+		document.getElementById("5a").style.visibility="hidden";
+		document.getElementById("6a").style.visibility="hidden";
+		document.getElementById("0c").style.visibility="visible";
+		document.getElementById("1c").style.visibility="visible";
+		document.getElementById("2c").style.visibility="visible";
+		document.getElementById("3c").style.visibility="visible";
+		document.getElementById("4c").style.visibility="visible";
+		document.getElementById("5c").style.visibility="visible";
+		document.getElementById("6c").style.visibility="visible";	
+	}
+}
+
+function compBowl(val){
+	target=c+1;
+	var str=Math.floor(Math.random()*7);
+	document.getElementById("cstr").innerHTML=str;
+	if(val!=str){
+	switch(val){
+	case 0:
+		{me+=str;
+		break;}
+	case 1:
+		{me+=1;
+		break;}
+	case 2:
+		{me+=2;
+		break;}
+	case 3:
+		{me+=3;
+		break;}
+	case 4:
+		{me+=4;
+		break;}
+	case 5:
+		{me+=5;
+		break;}
+	case 6:
+		{me+=6;
+		break;}
+	}
+	document.getElementById("uscore").innerHTML=me;
+	if(me>=target){
+		window.alert("You won!!!");
+		window.alert("GAME OVER");
+		resetAll();
+	}
+	}
+	else{
+	if(me<target){
+		window.alert("Computer wins!!!");
+		window.alert("GAME OVER");
+		resetAll();
+	}
+	}
+}
+
+</script>
+</head>
+<body>
+<font face="jokerman">
+<h1><center>Hand Cricket Game</center>
+<img src="reset.png" onclick=resetAll() width=25 height=25></h1>
+<br>
+
+<p align="center">
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+YOU
+
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+
+COMPUTER
+<br>
+
+<img src="you.png" width=300 height=300>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<img src="computer.jpg" width=300 height=300>
+
+<br>
+SCORE :&nbsp&nbsp&nbsp&nbsp<span id="uscore">0</span>
+&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+SCORE :&nbsp&nbsp&nbsp&nbsp<span id="cscore">0</span>
+<br>
+COMPUTER'S STRIKE
+<span id="cstr"> </span>
+<br>
+<button id="bat" style="visibility:hidden" onclick=bat()>BAT</button>
+<button id="bowl" style="visibility:hidden" onclick=bowl()>BOWL</button>
+<br>
+<button id="head" style="visibility:hidden" onclick=headOrTail(1)>HEAD</button>
+
+<span id="start">
+<img src="start.png" height=100 width=100 onclick=startGame()>
+</span>
+
+<button id="tail" style="visibility:hidden" onclick=headOrTail(0)>TAIL</button>
+<br>
+TARGET   <span id="tgt">   </span>
+<br>
+<button id="0b" style="visibility:hidden" onclick=userBowl(0)>0</button>  
+<button id="0c" style="visibility:hidden" onclick=compBowl(0)>0</button>  
+<button id="1b" style="visibility:hidden" onclick=userBowl(1)>1</button>  
+<button id="1c" style="visibility:hidden" onclick=compBowl(1)>1</button>  
+<button id="2b" style="visibility:hidden" onclick=userBowl(2)>2</button>  
+<button id="2c" style="visibility:hidden" onclick=compBowl(2)>2</button>
+<button id="3b" style="visibility:hidden" onclick=userBowl(3)>3</button>  
+<button id="3c" style="visibility:hidden" onclick=compBowl(3)>3</button>  
+<button id="4b" style="visibility:hidden" onclick=userBowl(4)>4</button>  
+<button id="4c" style="visibility:hidden" onclick=compBowl(4)>4</button>
+<button id="5b" style="visibility:hidden" onclick=userBowl(5)>5</button>  
+<button id="5c" style="visibility:hidden" onclick=compBowl(5)>5</button>  
+<button id="6b" style="visibility:hidden" onclick=userBowl(6)>6</button>  
+<button id="6c" style="visibility:hidden" onclick=compBowl(6)>6</button>
+
+<br>
+<button id="0" style="visibility:hidden" onclick=userBat(0)>0</button>
+<button id="0a" style="visibility:hidden" onclick=compBat(0)>0</button>
+<button id="1" style="visibility:hidden" onclick=userBat(1)>1</button>  
+<button id="1a" style="visibility:hidden" onclick=compBat(1)>1</button>
+<button id="2" style="visibility:hidden" onclick=userBat(2)>2</button>
+<button id="2a" style="visibility:hidden" onclick=compBat(2)>2</button>
+<button id="3" style="visibility:hidden" onclick=userBat(3)>3</button>
+<button id="3a" style="visibility:hidden" onclick=compBat(3)>3</button>  
+<button id="4" style="visibility:hidden" onclick=userBat(4)>4</button>
+<button id="4a" style="visibility:hidden" onclick=compBat(4)>4</button>
+<button id="5" style="visibility:hidden" onclick=userBat(5)>5</button>
+<button id="5a" style="visibility:hidden" onclick=compBat(5)>5</button>  
+<button id="6" style="visibility:hidden" onclick=userBat(6)>6</button>
+<button id="6a" style="visibility:hidden" onclick=compBat(6)>6</button>
+
+</p>
+</font>
+</body>
+</html>
