@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Classroom</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="login/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="login/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	<div class="limiter">
+        <div class ="home-staffhome-1">
+            <h2>
+             <img src="login/images/bg-01.jpg" width="105" height="100">
+                Welcome to the Classroom!
+                <img class="topright" src="login/images/icons/menu.png" width="50" height="50" onclick=myFunction()>
+                <span id="myDropdown" class="dropdown-content">
+                    <a href="index.html">Logout</a>
+                </span>
+            </h2>
+		</div>
+
+		<div class ="home-staffhome-2">
+			<div class="course-1">
+				<div class="course-1-details">
+					Introduction to Java Script
+				</div>
+				<button class="topright-1" onclick="view()">View Course</button>
+			</div>
+		</div>
+
+    </div>
+
+<script>
+    function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+	function view(){
+		window.location.href="staffcourse.html";
+	}
+
+
+</script>
+
+</body>
+</html>

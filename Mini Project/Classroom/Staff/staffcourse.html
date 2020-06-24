@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Classroom</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="login/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="login/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+	<div class="limiter">
+        <div class ="home-staffhome-1">
+            <h2>
+             <img src="login/images/bg-01.jpg" width="105" height="100">
+                Welcome to the Classroom!
+                <img class="topright" src="login/images/icons/back.png" width="50" height="50" onclick=myFunction()>
+                <span id="myDropdown" class="dropdown-content">
+                    <a href="index.html">Logout</a>
+                </span>
+            </h2>
+		</div>
+
+		<div class ="home-staffcourse">
+			<div class="course-2">
+                <textarea id="ta1" rows="10" cols="70" placeholder="Type Something here..."></textarea>
+                <div id="file-post">Select a file:
+                  <input type="file" id="input" accept=".docx, .pdf">
+                <button class="topright-2" onclick="post()">Post</button>
+            </div>
+		</div>
+    </div>
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script src="/__/firebase/7.14.5/firebase-app.js"></script>
+    <script src="/__/firebase/7.14.5/firebase-functions.js"></script>
+    <script src="/__/firebase/7.14.5/firebase-firestore.js"></script>
+    <script src="/__/firebase/7.14.5/firebase-storage.js"></script>
+    <script src="/__/firebase/7.14.5/firebase-database.js"></script>
+    <script src="/__/firebase/7.14.5/firebase.js"></script>
+    
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyDN26tF7kYLZfsAr7trJ33iKF2WnmrcNFQ",
+    authDomain: "classroom-d926b.firebaseapp.com",
+    databaseURL: "https://classroom-d926b.firebaseio.com",
+    projectId: "classroom-d926b",
+    storageBucket: "classroom-d926b.appspot.com",
+    messagingSenderId: "53581766578",
+    appId: "1:53581766578:web:db50be48b158b96c880eab"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
+</script>
+<script>
+  var message;
+    
+
+  function post(){
+
+    var  msgPost= firebase.database().ref("post/");
+    var ref;
+    alert("Please wait...");
+    message =document.getElementById("ta1").value;
+ 
+    const selectedFile = document.getElementById('input').files[0];
+    var storageRef = firebase.storage().ref();
+    
+
+    if(selectedFile!=undefined){
+    if(message!="" && selectedFile.name.split(".")[1]=="pdf"){
+      msgPost.update({"name": selectedFile.name});
+      msgPost.update({"msg": message});
+      ref = storageRef.child('post.pdf');
+      msgPost.update({"doc/pdf": "yes"});
+      msgPost.update({"doc/docx": "no"});
+    }
+    else if(message!="" && selectedFile.name.split(".")[1]=="docx"){
+      msgPost.update({"name": selectedFile.name});
+      msgPost.update({"msg": message});
+      ref = storageRef.child('post.docx');
+      msgPost.update({"doc/pdf": "no"});
+      msgPost.update({"doc/docx": "yes"});
+    }
+    else if(message=="" && selectedFile.name.split(".")[1]=="pdf"){
+      msgPost.update({"name": selectedFile.name});
+      ref = storageRef.child('post.pdf');
+      msgPost.update({"msg": "No message is posted."});
+      msgPost.update({"doc/pdf": "yes"});
+      msgPost.update({"doc/docx": "no"});
+    }
+    else if(message=="" && selectedFile.name.split(".")[1]=="docx"){
+      msgPost.update({"name": selectedFile.name});
+      ref = storageRef.child('post.docx');
+      msgPost.update({"msg": "No message is posted."});
+      msgPost.update({"doc/docx": "yes"});
+      msgPost.update({"doc/pdf": "no"});
+    }
+    }
+    else if(selectedFile==undefined){
+      msgPost.update({"msg": message});
+      msgPost.update({"name": "no"});
+      msgPost.update({"doc/pdf": "no"});
+      msgPost.update({"doc/docx": "no"});
+      setTimeout(function(){ alert("Your content has been successfully posted.");myFunction();}, 5000);
+    }
+    
+    let reader = new FileReader();
+    reader.onload = function(e) {
+        let blob = new Blob([new Uint8Array(e.target.result)], {type: selectedFile.type });
+        //console.log(blob);
+    };
+    reader.readAsArrayBuffer(selectedFile);
+
+    ref.put(selectedFile).then(function(snapshot) {
+    //console.log('Uploaded a blob or file!');
+    alert("Your content has been successfully posted.");
+    myFunction();
+    });
+    
+  }
+
+    function myFunction() {
+      window.location.href="staffhome.html";
+    }
+
+
+</script>
+
+</body>
+</html>
+
+
+
+
+
+
