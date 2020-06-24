@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Hall Booking</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+<link rel="shortcut icon" href="files/images/logoicon.ico" type="image/x-icon" />>
+
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="files/Login/css/main.css">
+<!--===============================================================================================-->
+
+      <script src="https://smtpjs.com/v3/smtp.js"></script>
+    </head>
+  
+    <body onload="details()" style="background-image: url('files/images/bg-01.png');">
+            <div class="limiter">
+                <div class="container-login100" style="background-image: url('files/Login/images/bg-01.png');">
+                    <div class="wrap-login100">
+                        <form class="login100-form validate-form" method="dialog">
+                            <span class="login100-form-logo">
+                                <img src="files/Login/images/icons/book.png" width=80 height=80>
+                            </span>
+                            <center><font color="white">
+                            <span class="login100-form-title p-b-34 p-t-27">
+                                Hall Booking
+                            </span>
+                            <div id="hallbook">
+                            <div class="input100">
+                            EVENT NAME&nbsp;&nbsp;&nbsp; <input type="text"  autofocus="true" required="true" id="event_name"/>
+                            </div>
+                            
+                             DATE&nbsp;&nbsp;&nbsp; <span id="eventdate"> </span>
+                             <br><br>
+                             SELECTED SESSION/DAYS &nbsp;&nbsp;&nbsp; <span id="dayses"></span>
+                            <br><br>
+                            HALL&nbsp;&nbsp;&nbsp;<span id="hallselect"> </span>
+                            <br><br>
+
+                            <div class="container-login100-form-btn">
+                                <button class="login100-form-btn" onclick=bookingDone() id="back">
+                                    OK
+                                </button>
+                            </div>
+                        </div>
+                        <br>
+                            <div class="container-login100-form-btn">
+                                <button class="login100-form-btn" onclick=backto() id="back" style="visibility: hidden;">
+                                    <<-Back
+                                </button> 
+                                &nbsp;&nbsp;&nbsp;
+                                <button class="login100-form-btn" onclick=goToLogin() id="logout" style="visibility: hidden;">
+                                    Logout
+                                </button>
+                            </div>
+                            </center></font>
+                        </form>
+                </div>
+            </div>
+            
+                            
+        <script src="/__/firebase/7.11.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="/__/firebase/7.11.0/firebase-auth.js"></script>
+    <script src="/__/firebase/7.11.0/firebase-firestore.js"></script>
+
+    <script src="/__/firebase/7.11.0/firebase-storage.js"></script>
+    <script src="/__/firebase/7.11.0/firebase-database.js"></script>
+    <script src="/__/firebase/7.11.0/firebase.js"></script>
+
+    <script src="/__/firebase/init.js"></script>
+
+     <script>
+        var database;
+        var edate;
+        var users, halls,user_in,db_user;
+            var firebaseConfig = {
+            apiKey: "AIzaSyBk3hd5lda2StRTfCWUTaqKDIjB7MQxFy0",
+            authDomain: "hall-bookings-5a78e.firebaseapp.com",
+            databaseURL: "https://hall-bookings-5a78e.firebaseio.com",
+            projectId: "hall-bookings-5a78e",
+            storageBucket: "hall-bookings-5a78e.appspot.com",
+            messagingSenderId: "1050429890779",
+            appId: "1:1050429890779:web:d9cc201e5f9057edc9acfe"
+          };
+          
+          // Initialize Firebase
+            if (firebase.apps.length === 0) {
+             firebase.initializeApp({});
+            }   
+            //console.log(firebase);
+    
+    
+           database=firebase.database();
+            var ref=database.ref("user");
+            ref.on("value", gotData,  errData);
+        
+            function gotData(data){
+               users=data.val();  
+               //console.log(users.bme);
+               findUser();
+            } 
+
+            function gotData1(data){
+              users=data.val();  
+              if(user_in=="ARTS")
+                db_user= firebase.database().ref("ARTS/");
+              else if(user_in=="CSE")
+                db_user= firebase.database().ref("CSE/");
+              else if(user_in=="BME")
+                db_user= firebase.database().ref("BME/");
+              else if(user_in=="EEE")
+                db_user= firebase.database().ref("EEE/");
+              else if(user_in=="ECE")
+                db_user= firebase.database().ref("ECE/");
+              else if(user_in=="CIVIL")
+                db_user= firebase.database().ref("CIVIL/");
+              else if(user_in=="IT")
+                db_user= firebase.database().ref("IT/");
+              else if(user_in=="MECH")
+                db_user= firebase.database().ref("MECH/");
+            }
+
+            function gotData2(data){
+               halls=data.val();  
+               detailDisplay();
+            }
+            
+            function errData(err){
+                console.log("Error!");
+                console.log(err);
+            }
+
+            function findUser(){
+                if(users.arts=="yes")
+                    user_in="ARTS";
+                else if(users.bme=="yes")
+                    user_in="BME";
+                else if(users.eee=="yes")
+                    user_in="EEE";
+                else if(users.ece=="yes")
+                    user_in="ECE";
+                else if(users.civil=="yes")
+                    user_in="CIVIL";
+                else if(users.it=="yes")
+                    user_in="IT";
+                else if(users.cse=="yes")
+                    user_in="CSE";
+                else if(users.mech=="yes")
+                    user_in="MECH";
+                
+                var ref1=database.ref(user_in);
+                ref1.on("value", gotData1,  errData);
+            }
+            function details(){
+              var ref=database.ref("hall");
+              ref.on("value", gotData2,  errData);
+          }
+          function detailDisplay(){
+            edate=halls.date;
+            edate=edate.split(",");
+            document.getElementById("hallselect").innerHTML=halls.hall;
+            document.getElementById("eventdate").innerHTML=edate[0];
+            document.getElementById("dayses").innerHTML=halls.daysession;
+          }
+
+          function bookingDone(){
+            //email support
+            ename=document.getElementById("event_name").value;
+            edate=edate.join(",");
+            var mname;
+            switch(user_in){
+                case "arts":
+                case "ARTS":
+                {
+                    mname="";
+                    break;
+                }
+                case "cse":
+                case "CSE":
+                {
+                    mname="ishu.chandru21@gmail.com";
+                    break;
+                }
+                case "bme":
+                case "BME":
+                {
+                    mname="";
+                    break;
+                }
+                case "eee":
+                case "EEE":
+                {
+                    mname="";
+                    break;
+                }
+                case "ece":
+                case "ECE":
+                {
+                    mname="";
+                    break;
+                }
+                case "civil":
+                case "CIVIL":
+                {
+                    mname="";
+                    break;
+                }
+                case "mech":
+                case "MECH":
+                {
+                    mname="";
+                    break;
+                }
+                case "it":
+                case  "IT":
+                {
+                    mname="";
+                    break;
+                }
+               
+            }
+            Email.send({
+                        Host: "smtp.gmail.com",
+                        Username : "drngpithallbooking@gmail.com",
+                        Password : "hall@ngpit",
+                        To : mname,
+                        From : "drngpithallbooking@gmail.com",
+                        Subject : "Hall Booking - Details",
+                        Body : " Event Name - "+ename+"<br> Hall(s) booked - "+halls.hall+"<br> Date : "+edate+"<br> Day(s)/Session - "+halls.daysession,
+                        }).then(
+                            message => alert("Booking details have been sent to your mail!")
+                        );
+            
+            n=halls.daysession;
+            ehall=halls.hall.split(",");
+            switch (n){
+              case "AN":{
+                edate=edate+"-AN";
+                break;
+              }
+              case "FN":{
+                edate=edate+"-FN";
+                break;
+              }
+            }
+            
+            for(var i=0;i<ehall.length;i++){
+                ehall[i]=ehall[i].substring(0,4).toLowerCase();
+        
+            switch (ehall[i]){
+              case "conf":{
+                if(users.conf=="not booked")
+                  db_user.update({"conf": edate});
+                else
+                  db_user.update({"conf": users.conf+","+edate});
+                break;
+              }
+              case "east":{
+                if(users.east=="not booked")
+                  db_user.update({"east": edate});
+                else
+                  db_user.update({"east": users.east+","+edate});
+                break;
+              }
+              case "west":{
+                if(users.west=="not booked")
+                  db_user.update({"west": edate});
+                else
+                  db_user.update({"west": users.west+","+edate});
+                break;
+              }
+            }
+            }
+            window.alert("Booking Confirmed!");
+            document.getElementById("hallbook").innerHTML="Thankyou - Your Booking is confirmed. Have a nice day!";
+            document.getElementById("logout").style.visibility="visible";
+            document.getElementById("back").style.visibility="visible";
+          }
+          function goToLogin(){
+            var  db_login= firebase.database().ref("user/");
+            if(user_in=="ARTS")
+              db_login.update({"arts": "no"});
+            else if(user_in=="CSE")
+              db_login.update({"cse": "no"});
+            else if(user_in=="BME")
+              db_login.update({"bme": "no"});
+            else if(user_in=="EEE")
+              db_login.update({"eee": "no"});
+            else if(user_in=="ECE")
+              db_login.update({"ece": "no"});
+            else if(user_in=="CIVIL")
+              db_login.update({"civil": "no"});
+            else if(user_in=="IT")
+              db_login.update({"it": "no"});
+            else if(user_in=="MECH")
+              db_login.update({"mech": "no"});
+            
+            window.location.href="index.html";
+          }
+
+          function backto(){
+                window.location.href="home.html";
+            }
+
+      </script>
+    </body>
+</html>

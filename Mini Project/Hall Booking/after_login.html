@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Booking</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+<link rel="shortcut icon" href="files/images/logoicon.ico" type="image/x-icon" />>
+
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="files/Login/css/main.css">
+<!--===============================================================================================-->
+<script type="text/javascript">
+    function session(){
+        document.getElementById("ses").style.visibility="visible";
+        document.getElementById("dayy").style.visibility="hidden";
+    }
+    function days(){
+        document.getElementById("dayy").style.visibility="visible";
+        document.getElementById("ses").style.visibility="hidden";
+    }
+</script>
+</head>
+<body style="background-image: url('files/images/bg-01.png');">
+    <div class="limiter">
+		<div class="container-login100" style="background-image: url('files/Login/images/bg-01.png');">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" method="dialog">
+					<span class="login100-form-logo">
+						<img src="files/Login/images/icons/book.png" width=80 height=80>
+					</span>
+
+					<span class="login100-form-title p-b-34 p-t-27">
+						Hall Booking
+					</span>
+                    <div class="input100">
+                        EVENT DATE&nbsp;&nbsp;&nbsp;&nbsp;<input type="date" id="edate">
+                    </div>
+                    <div class="input100">
+                        CHECK FOR:&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="sessionradio" onclick=session() name="r">&nbsp;Session
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="daysradio" onclick=days() name="r">&nbsp;Days
+                        <br>
+                        <center>
+                        <span id="ses" style="visibility:hidden">
+                        <input type="radio" id="fn" name="r1"/>FN
+                        &nbsp;&nbsp;&nbsp;
+                        <input type="radio" id="an" name="r1"/>AN
+                        </span>
+                       <br>
+                        <span id="dayy" style="visibility:hidden">
+                        <select id="dayyy">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                        </span>
+                    </center>
+                    </div>
+                    <br><br>
+                    <div class="input100">
+                        <b>HALLS</b><br>
+                        <input type="checkbox" id="west"/>West Seminar Hall
+                        <br>
+                        <input type="checkbox" id="east"/>East Seminar Hall
+                        <br>
+                        <input type="checkbox" id="conf"/>Conference Hall
+                    </div>
+                    <br>
+                    <br>
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" onclick=checkHall() name="check">
+							Check
+						</button>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	
+    <script src="/__/firebase/7.11.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="/__/firebase/7.11.0/firebase-auth.js"></script>
+    <script src="/__/firebase/7.11.0/firebase-firestore.js"></script>
+
+    <script src="/__/firebase/7.11.0/firebase-storage.js"></script>
+    <script src="/__/firebase/7.11.0/firebase-database.js"></script>
+    <script src="/__/firebase/7.11.0/firebase.js"></script>
+
+    <script src="/__/firebase/init.js"></script>
+
+    <script>
+        var database;
+        var user_arts, user_bme, user_cse, user_eee, user_ece, user_civil, user_it, user_mech;
+        var edate;
+        var flag=1;
+        var firebaseConfig = {
+        apiKey: "AIzaSyBk3hd5lda2StRTfCWUTaqKDIjB7MQxFy0",
+        authDomain: "hall-bookings-5a78e.firebaseapp.com",
+        databaseURL: "https://hall-bookings-5a78e.firebaseio.com",
+        projectId: "hall-bookings-5a78e",
+        storageBucket: "hall-bookings-5a78e.appspot.com",
+        messagingSenderId: "1050429890779",
+        appId: "1:1050429890779:web:d9cc201e5f9057edc9acfe"
+      };
+      
+      // Initialize Firebase
+      if (firebase.apps.length === 0) {
+         firebase.initializeApp({});
+        }   
+      //console.log(firebase);
+
+
+       database=firebase.database();
+
+        var ref=database.ref("ARTS");
+        ref.on("value", gotData0,  errData);
+
+        var ref=database.ref("BME");
+        ref.on("value", gotData1,  errData);
+
+        var ref=database.ref("CSE");
+        ref.on("value", gotData2,  errData);
+
+        var ref=database.ref("CIVIL");
+        ref.on("value", gotData3,  errData);
+
+        var ref=database.ref("ECE");
+        ref.on("value", gotData4,  errData);
+
+        var ref=database.ref("EEE");
+        ref.on("value", gotData5,  errData);
+
+        var ref=database.ref("IT");
+        ref.on("value", gotData6,  errData);
+
+        var ref=database.ref("MECH");
+        ref.on("value", gotData7,  errData);
+        
+        function gotData0(data){
+           //console.log(data.val());
+           user_arts=data.val();  
+        }
+
+        function gotData1(data){
+           //console.log(data.val());
+           user_bme=data.val();  
+        }
+        
+        function gotData2(data){
+           //console.log(data.val());
+           user_cse=data.val();  
+        }
+
+        function gotData3(data){
+           //console.log(data.val());
+           user_civil=data.val();  
+        }
+
+        function gotData4(data){
+           //console.log(data.val());
+           user_ece=data.val();  
+        }
+
+        function gotData5(data){
+           //console.log(data.val());
+           user_eee=data.val();  
+        }
+
+        function gotData6(data){
+           user_it=data.val();  
+        }
+
+        function gotData7(data){
+           //console.log(data.val());
+           user_mech=data.val();  
+        }
+
+        function errData(err){
+            console.log("Error!");
+            console.log(err);
+        }
+
+        function checkHall(){
+            var  db_hall= firebase.database().ref("hall/");
+            //yyyy-mm-dd
+            edate=document.getElementById("edate").value;
+            dtoday=new Date();
+            dselect=new Date();
+            edatearray=edate.split("-");
+            dselect.setDate(edatearray[2]);
+            dselect.setMonth(edatearray[1]-1);
+            dselect.setFullYear(edatearray[0]);
+
+        if(document.getElementById("daysradio")){
+            var e = document.getElementById("dayyy");
+            n=e.options[e.selectedIndex].value;
+            var dselect=[];
+            dselect[0]=new Date();
+            dselect[1]=new Date();
+            dselect[2]=new Date();
+            dselect[3]=new Date();
+            dselect[4]=new Date();
+            dselect[5]=new Date();
+            edatearray=edate.split("-");
+            dselect[0].setDate(edatearray[2]);
+            dselect[0].setMonth(edatearray[1]-1);
+            dselect[0].setFullYear(edatearray[0]);
+            dselect[1].setDate(edatearray[2]);
+            dselect[1].setMonth(edatearray[1]-1);
+            dselect[1].setFullYear(edatearray[0]);
+            dselect[2].setDate(edatearray[2]);
+            dselect[2].setMonth(edatearray[1]-1);
+            dselect[2].setFullYear(edatearray[0]);
+            dselect[3].setDate(edatearray[2]);
+            dselect[3].setMonth(edatearray[1]-1);
+            dselect[3].setFullYear(edatearray[0]);
+            dselect[4].setDate(edatearray[2]);
+            dselect[4].setMonth(edatearray[1]-1);
+            dselect[4].setFullYear(edatearray[0]);
+            dselect[5].setDate(edatearray[2]);
+            dselect[5].setMonth(edatearray[1]-1);
+            dselect[5].setFullYear(edatearray[0]);
+
+            switch (n){
+              case "1":{
+                edate=edate;
+                break;
+              }
+              case "2":{
+                dselect[1].setDate(dselect[0].getDate()+1);
+                edate=edate+","+dselect[1].getFullYear()+"-"+("0"+(dselect[1].getMonth()+1)).slice(-2)+"-"+("0"+(dselect[1].getDate())).slice(-2);
+                break;
+              }
+              case "3":{
+                dselect[1].setDate(dselect[0].getDate()+1);
+                dselect[2].setDate(dselect[0].getDate()+2);
+                edate=edate+","+dselect[1].getFullYear()+"-"+("0"+(dselect[1].getMonth()+1)).slice(-2)+"-"+("0"+(dselect[1].getDate())).slice(-2)+","+dselect[2].getFullYear()+"-"+("0"+(dselect[2].getMonth()+1)).slice(-2)+"-"+("0"+(dselect[2].getDate())).slice(-2);
+                break;
+              }
+              case "4":{
+                dselect[1].setDate(dselect[0].getDate()+1);
+                dselect[2].setDate(dselect[0].getDate()+2);
+                dselect[3].setDate(dselect[0].getDate()+3);
+                edate=edate+","+dselect[1].getFullYear()+"-"+("0"+(dselect[1].getMonth()+1)).slice(-2)+"-"+("0"+(dselect[1].getDate())).slice(-2)+","+dselect[2].getFullYear()+"-"+("0"+(dselect[2].getMonth()+1)).slice(-2)+"-"+("0"+(dselect[2].getDate())).slice(-2)+","+dselect[3].getFullYear()+"-"+("0"+(dselect[3].getMonth()+1)).slice(-2)+"-"+("0"+(dselect[3].getDate())).slice(-2);
+                break;
+              }
+              case "5":{
+                dselect[1].setDate(dselect[0].getDate()+1);
+                dselect[2].setDate(dselect[0].getDate()+2);
+                dselect[3].setDate(dselect[0].getDate()+3);
+                dselect[4].setDate(dselect[0].getDate()+4);
+                edate=edate+","+dselect[1].getFullYear()+"-"+("0"+(dselect[1].getMonth()+1)).slice(-2)+"-"+("0"+(dselect[1].getDate())).slice(-2)+","+dselect[2].getFullYear()+"-"+("0"+(dselect[2].getMonth()+1)).slice(-2)+"-"+("0"+(dselect[2].getDate())).slice(-2)+","+dselect[3].getFullYear()+"-"+("0"+(dselect[3].getMonth()+1)).slice(-2)+"-"+("0"+(dselect[3].getDate())).slice(-2)+","+dselect[4].getFullYear()+"-"+("0"+(dselect[4].getMonth()+1)).slice(-2)+"-"+("0"+(dselect[4].getDate())).slice(-2);
+                break;
+              }
+            }
+            edate=edate.split(",");
+        }
+
+
+            if(dselect<dtoday || dselect==dtoday)
+                window.alert("Only dates from today can be selected!");
+            else if(document.getElementById("conf").checked==false && document.getElementById("east").checked==false && document.getElementById("west").checked==false)
+                window.alert("Select halls to book!");
+            else{
+            //for days
+            for(var i=0;i<5;i++){
+            if(document.getElementById("east").checked && document.getElementById("daysradio").checked){
+                if(user_arts.east.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by Arts College!");
+                    flag=0;
+                }
+                if(user_bme.east.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by BME Department!");
+                    flag=0;
+                }
+                if(user_civil.east.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by CIVIL Department!");
+                    flag=0;
+                }
+                if(user_cse.east.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by CSE Department!");
+                    flag=0;
+                }
+                if(user_ece.east.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by ECE Department!");
+                    flag=0;
+                }
+                if(user_eee.east.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by EEE Department!");
+                    flag=0;
+                }
+                if(user_it.east.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by IT Department!");
+                    flag=0;
+                }
+                if(user_mech.east.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by MECHANICAL Department!");
+                    flag=0;
+                }
+            }
+            
+            if(document.getElementById("west").checked && document.getElementById("daysradio").checked){
+                if(user_arts.west.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by Arts College!");
+                    flag=0;
+                }
+                if(user_bme.west.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by BME Department!");
+                    flag=0;
+                }
+                if(user_civil.west.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by CIVIL Department!");
+                    flag=0;
+                }
+                if(user_cse.west.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by CSE Department!");
+                    flag=0;
+                }
+                if(user_ece.west.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by ECE Department!");
+                    flag=0;
+                }
+                if(user_eee.west.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by EEE Department!");
+                    flag=0;
+                }
+                if(user_it.west.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by IT Department!");
+                    flag=0;
+                }
+                if(user_mech.west.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by MECHANICAL Department!");
+                    flag=0;
+                }
+            }
+            
+            if(document.getElementById("conf").checked && document.getElementById("daysradio").checked){
+                if(user_arts.conf.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by Arts College!");
+                    flag=0;
+                }
+                if(user_bme.conf.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by BME Department!");
+                    flag=0;
+                }
+                if(user_civil.conf.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by CIVIL Department!");
+                    flag=0;
+                }
+                if(user_cse.conf.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by CSE Department!");
+                    flag=0;
+                }
+                if(user_ece.conf.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by ECE Department!");
+                    flag=0;
+                }
+                if(user_eee.conf.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by EEE Department!");
+                    flag=0;
+                }
+                if(user_it.conf.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by IT Department!");
+                    flag=0;
+                }
+                if(user_mech.conf.includes(edate[i])){
+                    window.alert("The Hall for the date "+edate[i]+" is booked by MECHANICAL Department!");
+                    flag=0;
+                }
+            }
+            }
+            
+
+            //for session FN
+            if(document.getElementById("east").checked && document.getElementById("sessionradio").checked && document.getElementById("fn").checked){
+                if(user_arts.east.includes(edate+"-FN") || user_arts.east.includes(edate)){
+                    window.alert("Hall is booked by Arts College!");
+                    flag=0;
+                }
+                if(user_bme.east.includes(edate+"-FN") || user_bme.east.includes(edate)){
+                    window.alert("Hall is booked by BME Department!");
+                    flag=0;
+                }
+                if(user_civil.east.includes(edate+"-FN") || user_civil.east.includes(edate)){
+                    window.alert("Hall is booked by CIVIL Department!");
+                    flag=0;
+                }
+                if(user_cse.east.includes(edate+"-FN") || user_cse.east.includes(edate)){
+                    window.alert("Hall is booked by CSE Department!");
+                    flag=0;
+                }
+                if( user_ece.east.includes(edate+"-FN") || user_ece.east.includes(edate)){
+                    window.alert("Hall is booked by ECE Department!");
+                    flag=0;
+                }
+                if(user_eee.east.includes(edate+"-FN") || user_eee.east.includes(edate)){
+                    window.alert("Hall is booked by EEE Department!");
+                    flag=0;
+                }
+                if(user_it.east.includes(edate+"-FN") || user_it.east.includes(edate)){
+                    window.alert("Hall is booked by IT Department!");
+                    flag=0;
+                }
+                if(user_mech.east.includes(edate+"-FN") || user_mech.east.includes(edate)){
+                    window.alert("Hall is booked by MECHANICAL Department!");
+                    flag=0;
+                }
+            }
+            if(document.getElementById("west").checked && document.getElementById("sessionradio").checked && document.getElementById("fn").checked){
+                if(user_arts.west.includes(edate+"-FN") || user_arts.west.includes(edate)){
+                    window.alert("Hall is booked by Arts College!");
+                    flag=0;
+                }
+                if(user_bme.west.includes(edate+"-FN") || user_bme.west.includes(edate)){
+                    window.alert("Hall is booked by BME Department!");
+                    flag=0;
+                }
+                if(user_civil.west.includes(edate+"-FN") || user_civil.west.includes(edate)){
+                    window.alert("Hall is booked by CIVIL Department!");
+                    flag=0;
+                }
+                if(user_cse.west.includes(edate+"-FN") || user_cse.west.includes(edate)){
+                    window.alert("Hall is booked by CSE Department!");
+                    flag=0;
+                }
+                if( user_ece.west.includes(edate+"-FN") || user_ece.west.includes(edate)){
+                    window.alert("Hall is booked by ECE Department!");
+                    flag=0;
+                }
+                if(user_eee.west.includes(edate+"-FN") || user_eee.west.includes(edate)){
+                    window.alert("Hall is booked by EEE Department!");
+                    flag=0;
+                }
+                if(user_it.west.includes(edate+"-FN") || user_it.west.includes(edate)){
+                    window.alert("Hall is booked by IT Department!");
+                    flag=0;
+                }
+                if(user_mech.west.includes(edate+"-FN") || user_mech.west.includes(edate)){
+                    window.alert("Hall is booked by MECHANICAL Department!");
+                    flag=0;
+                }
+            }
+            
+            if(document.getElementById("conf").checked && document.getElementById("sessionradio").checked && document.getElementById("fn").checked){
+                if(user_arts.conf.includes(edate+"-FN") || user_arts.conf.includes(edate)){
+                    window.alert("Hall is booked by Arts College!");
+                    flag=0;
+                }
+                if(user_bme.conf.includes(edate+"-FN") || user_bme.conf.includes(edate)){
+                    window.alert("Hall is booked by BME Department!");
+                    flag=0;
+                }
+                if(user_civil.conf.includes(edate+"-FN") || user_civil.conf.includes(edate)){
+                    window.alert("Hall is booked by CIVIL Department!");
+                    flag=0;
+                }
+                if(user_cse.conf.includes(edate+"-FN") || user_cse.conf.includes(edate)){
+                    window.alert("Hall is booked by CSE Department!");
+                    flag=0;
+                }
+                if( user_ece.conf.includes(edate+"-FN") || user_ece.conf.includes(edate)){
+                    window.alert("Hall is booked by ECE Department!");
+                    flag=0;
+                }
+                if(user_eee.conf.includes(edate+"-FN") || user_eee.conf.includes(edate)){
+                    window.alert("Hall is booked by EEE Department!");
+                    flag=0;
+                }
+                if(user_it.conf.includes(edate+"-FN") || user_it.conf.includes(edate)){
+                    window.alert("Hall is booked by IT Department!");
+                    flag=0;
+                }
+                if(user_mech.conf.includes(edate+"-FN") || user_mech.conf.includes(edate)){
+                    window.alert("Hall is booked by MECHANICAL Department!");
+                    flag=0;
+                }
+            }
+            
+            //for session AN
+            if(document.getElementById("east").checked && document.getElementById("sessionradio").checked && document.getElementById("an").checked){
+                if(user_arts.east.includes(edate+"-AN") || user_arts.east.includes(edate)){
+                    window.alert("Hall is booked by Arts College!");
+                    flag=0;
+                }
+                if(user_bme.east.includes(edate+"-AN") || user_bme.east.includes(edate)){
+                    window.alert("Hall is booked by BME Department!");
+                    flag=0;
+                }
+                if(user_civil.east.includes(edate+"-AN") || user_civil.east.includes(edate)){
+                    window.alert("Hall is booked by CIVIL Department!");
+                    flag=0;
+                }
+                if(user_cse.east.includes(edate+"-AN") || user_cse.east.includes(edate)){
+                    window.alert("Hall is booked by CSE Department!");
+                    flag=0;
+                }
+                if( user_ece.east.includes(edate+"-AN") || user_ece.east.includes(edate)){
+                    window.alert("Hall is booked by ECE Department!");
+                    flag=0;
+                }
+                if(user_eee.east.includes(edate+"-AN") || user_eee.east.includes(edate)){
+                    window.alert("Hall is booked by EEE Department!");
+                    flag=0;
+                }
+                if(user_it.east.includes(edate+"-AN") || user_it.east.includes(edate)){
+                    window.alert("Hall is booked by IT Department!");
+                    flag=0;
+                }
+                if(user_mech.east.includes(edate+"-AN") || user_mech.east.includes(edate)){
+                    window.alert("Hall is booked by MECHANICAL Department!");
+                    flag=0;
+                }
+            }
+            if(document.getElementById("west").checked && document.getElementById("sessionradio").checked && document.getElementById("an").checked){
+                if(user_arts.west.includes(edate+"-AN") || user_arts.west.includes(edate)){
+                    window.alert("Hall is booked by Arts College!");
+                    flag=0;
+                }
+                if(user_bme.west.includes(edate+"-AN") || user_bme.west.includes(edate)){
+                    window.alert("Hall is booked by BME Department!");
+                    flag=0;
+                }
+                if(user_civil.west.includes(edate+"-AN") || user_civil.west.includes(edate)){
+                    window.alert("Hall is booked by CIVIL Department!");
+                    flag=0;
+                }
+                if(user_cse.west.includes(edate+"-AN") || user_cse.west.includes(edate)){
+                    window.alert("Hall is booked by CSE Department!");
+                    flag=0;
+                }
+                if( user_ece.west.includes(edate+"-AN") || user_ece.west.includes(edate)){
+                    window.alert("Hall is booked by ECE Department!");
+                    flag=0;
+                }
+                if(user_eee.west.includes(edate+"-AN") || user_eee.west.includes(edate)){
+                    window.alert("Hall is booked by EEE Department!");
+                    flag=0;
+                }
+                if(user_it.west.includes(edate+"-AN") || user_it.west.includes(edate)){
+                    window.alert("Hall is booked by IT Department!");
+                    flag=0;
+                }
+                if(user_mech.west.includes(edate+"-AN") || user_mech.west.includes(edate)){
+                    window.alert("Hall is booked by MECHANICAL Department!");
+                    flag=0;
+                }
+            }
+            if(document.getElementById("conf").checked && document.getElementById("sessionradio").checked && document.getElementById("an").checked){
+                if(user_arts.conf.includes(edate+"-AN") || user_arts.conf.includes(edate)){
+                    window.alert("Hall is booked by Arts College!");
+                    flag=0;
+                }
+                if(user_bme.conf.includes(edate+"-AN") || user_bme.conf.includes(edate)){
+                    window.alert("Hall is booked by BME Department!");
+                    flag=0;
+                }
+                if(user_civil.conf.includes(edate+"-AN") || user_civil.conf.includes(edate)){
+                    window.alert("Hall is booked by CIVIL Department!");
+                    flag=0;
+                }
+                if(user_cse.conf.includes(edate+"-AN") || user_cse.conf.includes(edate)){
+                    window.alert("Hall is booked by CSE Department!");
+                    flag=0;
+                }
+                if( user_ece.conf.includes(edate+"-AN") || user_ece.conf.includes(edate)){
+                    window.alert("Hall is booked by ECE Department!");
+                    flag=0;
+                }
+                if(user_eee.conf.includes(edate+"-AN") || user_eee.conf.includes(edate)){
+                    window.alert("Hall is booked by EEE Department!");
+                    flag=0;
+                }
+                if(user_it.conf.includes(edate+"-FN") || user_it.conf.includes(edate)){
+                    window.alert("Hall is booked by IT Department!");
+                    flag=0;
+                }
+                if(user_mech.conf.includes(edate+"-FN") || user_mech.conf.includes(edate)){
+                    window.alert("Hall is booked by MECHANICAL Department!");
+                    flag=0;
+                }
+            }
+            if(flag==1){
+                var e = document.getElementById("dayyy");
+                ds=e.options[e.selectedIndex].value;
+            
+                if(document.getElementById("conf").checked && document.getElementById("east").checked && document.getElementById("west").checked)
+                    db_hall.update({"hall": "East Seminar Hall,East Seminar Hall,Conference Hall"});
+                else if(document.getElementById("west").checked && document.getElementById("east").checked)
+                    db_hall.update({"hall": "West Seminar Hall,East Seminar Hall"});
+                else if(document.getElementById("west").checked && document.getElementById("conf").checked)
+                    db_hall.update({"hall": "West Seminar Hall,Conference Hall"});
+                else if(document.getElementById("conf").checked && document.getElementById("east").checked)
+                    db_hall.update({"hall": "East Seminar Hall,Conference Hall"});
+                else if(document.getElementById("east").checked)
+                    db_hall.update({"hall": "East Seminar Hall"});
+                else if(document.getElementById("conf").checked)
+                    db_hall.update({"hall": "Conference Hall"});
+                else if(document.getElementById("west").checked)
+                    db_hall.update({"hall": "West Seminar Hall"});
+
+                if(typeof edate=="object"){
+                    edate=edate.join(",");
+                }
+                db_hall.update({"date": edate});
+                if(document.getElementById("sessionradio").checked && document.getElementById("an").checked)
+                    db_hall.update({"daysession": "AN"});
+                else if(document.getElementById("sessionradio").checked && document.getElementById("fn").checked)
+                    db_hall.update({"daysession": "FN"});
+               else if(document.getElementById("daysradio").checked)
+                    db_hall.update({"daysession": ds}); 
+                window.alert("You got a Hall!");
+                window.location.href="hall_book.html";
+            }
+
+        }
+        }
+    </script>
+    </body>
+</html>

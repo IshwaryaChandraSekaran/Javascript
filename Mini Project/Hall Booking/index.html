@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+    
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="files/images/logoicon.ico" type="image/x-icon" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="files/css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="files/style.css">    
+    <!-- ALL VERSION CSS -->
+    <link rel="stylesheet" href="files/css/versions.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="files/css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="files/css/custom.css">
+
+
+</head>
+<body class="app_version" data-spy="scroll">
+	<div class="top-bar">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+					
+				</div>
+			</div>
+		</div>
+	</div>
+    <header class="header header_style_01">
+        <nav class="navbar header-nav navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.html"><img src="files/images/logo.png" alt="image" width=400 height=100></a>
+				
+				<button class="navbar-toggler" type="button" data-toggle="collapse"  aria-controls="navbarApp" aria-expanded="false" aria-label="Toggle navigation">
+					<span></span>
+					<span></span>
+                    <span></span>
+				</button>
+                <a class="navbar-brand" href="index.html"><img src="files/images/logos/logo-app.png" alt="image" width=150 height=100></a>
+            </div>
+        </nav>
+    </header>
+
+    <div id="home" class="parallax first-section" style="background-image:url('files/Login/images/bg-01.png');">
+        <div class="container">
+            <br><br>
+                    <div class="big-tagline">
+                        <center>
+                        <h2>Welcome</h2>
+                        <p class="lead">Book a hall now!!!</p>
+                        <a  class="btn btn-light btn-radius btn-brd" href="login.html"> Login </a>
+                        </center>
+                    </div>
+            
+            
+        </div><!-- end container -->
+    </div><!-- end section -->
+
+
+    <script src="/__/firebase/7.11.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="/__/firebase/7.11.0/firebase-auth.js"></script>
+    <script src="/__/firebase/7.11.0/firebase-firestore.js"></script>
+    
+    <script src="/__/firebase/7.11.0/firebase-storage.js"></script>
+    <script src="/__/firebase/7.11.0/firebase-database.js"></script>
+    <script src="/__/firebase/7.11.0/firebase.js"></script>
+    
+    <script src="/__/firebase/init.js"></script>
+
+    <script>
+    var firebaseConfig = {
+        apiKey: "AIzaSyBk3hd5lda2StRTfCWUTaqKDIjB7MQxFy0",
+        authDomain: "hall-bookings-5a78e.firebaseapp.com",
+        databaseURL: "https://hall-bookings-5a78e.firebaseio.com",
+        projectId: "hall-bookings-5a78e",
+        storageBucket: "hall-bookings-5a78e.appspot.com",
+        messagingSenderId: "1050429890779",
+        appId: "1:1050429890779:web:d9cc201e5f9057edc9acfe"
+      };
+      
+      // Initialize Firebase
+      if (firebase.apps.length === 0) {
+         firebase.initializeApp({});
+        }   
+      //console.log(firebase);
+       database=firebase.database();
+    </script>
+</body>
+</html>

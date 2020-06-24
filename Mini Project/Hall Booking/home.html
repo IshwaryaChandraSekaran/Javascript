@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+ <head>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+    
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="files/images/logoicon.ico" type="image/x-icon" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="files/css/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="files/style.css">    
+    <!-- ALL VERSION CSS -->
+    <link rel="stylesheet" href="files/css/versions.css">
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="files/css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="files/css/custom.css">
+
+    <link rel="stylesheet" type="text/css" href="files/Login/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="files/Login/css/main.css">
+
+
+</head>
+<body class="app_version" data-spy="scroll">
+    
+    <!-- LOADER -->
+    <!-- <div id="preloader">
+        <img class="preloader" src="images/loaders/loader-app.gif" alt="">
+    </div> end loader -->
+    <!-- END LOADER -->
+	
+    <header class="header header_style_01" >
+        <nav class="navbar header-nav navbar-expand-lg">
+            <div class="container" id="begin">
+				<a class="navbar-brand"><img src="files/images/logos/logo-app.png" alt="image" width=150 height=100></a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"  aria-controls="navbarApp" aria-expanded="false" aria-label="Toggle navigation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarApp">
+                    <ul class="navbar-nav">
+                        <li><a class="nav-link active" href="#home">Home</a></li>
+                        <li><a class="nav-link" href="#book">Hall Booking</a></li>
+                        <li><a class="nav-link" href="#support">Contact Us</a></li>
+                        <button class="container1" onclick="myFunction(this)">
+                            <div class="bar1"></div>
+                            <div class="bar2"></div>
+                            <div class="bar3"></div>
+                        </button>
+                        <span id="myDropdown" class="dropdown-content">
+                        <a href="password_change.html">Change Password</a>
+                        <a href="index.html" onclick="goToIndex()">Logout</a>
+                        </span>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    
+
+
+    <div id="home" class="parallax first-section" style="background-image:url('files/Login/images/bg-01.png');">
+        
+        
+        <div class="big-tagline">
+            <center>
+                <h2>Welcome to Hall Booking</h2>
+                <p class="lead"> of Dr. N.G.P. Institute of Technology<br>
+                    You are logged in as </p>
+                    <h2 id="h2"></h2>
+            </center>  
+        </div>   
+    
+    </div><!-- end section -->
+    
+    <div id="book" class="section wb">
+            <div class="section-title text-center">
+                <h3>Hall Booking</h3>
+            </div><!-- end title -->
+        <center>
+            <div class="box-3">
+                <div class="btn1 btn-three" onclick="book()">
+                  <span>Book</span>
+                </div>
+              </div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="box-3">
+                <div class="btn1 btn-three" onclick="myBookings()">
+                  <span>My Bookings</span>
+                </div>
+              </div>
+        </center>
+    </div><!-- end section -->
+    
+    
+    <div id="support" class="section" style="background-image:url('files/uploads/form_bg.jpg');">
+        <div class="container">
+            <div class="section-title text-center">
+                <h3>Get in Touch</h3>
+                <center>
+				<div class="info-box" data-toggle="tooltip" data-placement="center" title="Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.">
+					<i class="fa fa-question-circle" aria-hidden="true"></i>
+                </div>
+            </center>
+            </div><!-- end title -->
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="contact_form">
+                        <div id="message"></div>
+                        <form id="contactform" class="row" name="contactform" method="dialog">
+                            <fieldset class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="first_name" id="first_name" class="form-control" placeholder="First Name">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="last_name" id="last_name" class="form-control" placeholder="Last Name">
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <input type="email" name="email" id="email" class="form-control" placeholder="Your Email">
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <textarea class="form-control" name="comments" id="comments" rows="6" placeholder="Give us more details.."></textarea>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 text-center">
+                                    <button type="submit" value="SEND" id="submit" class="btn btn-light btn-radius btn-brd grd1 btn-block" onclick=sendFeedback()>Send Feedback</button>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div><!-- end col -->
+            </div><!-- end row -->
+        </div><!-- end container -->
+    </div><!-- end section -->
+    
+    <section class="section nopad cac text-center">
+        <a href="#begin"><span>Thankyou for Visiting. Have a Nice day!</span></a>
+    </section>
+
+    <script src="/__/firebase/7.11.0/firebase-app.js"></script>
+
+	<!-- Add Firebase products that you want to use -->
+	<script src="/__/firebase/7.11.0/firebase-auth.js"></script>
+	<script src="/__/firebase/7.11.0/firebase-firestore.js"></script>
+
+	<script src="/__/firebase/7.11.0/firebase-storage.js"></script>
+	<script src="/__/firebase/7.11.0/firebase-database.js"></script>
+	<script src="/__/firebase/7.11.0/firebase.js"></script>
+
+    <script src="/__/firebase/init.js"></script>
+    
+
+    <script>
+        var  db_user;
+        var database;
+        var user_in;
+
+        function myFunction(x) {
+            x.classList.toggle("change");
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        var firebaseConfig = {
+            apiKey: "AIzaSyBk3hd5lda2StRTfCWUTaqKDIjB7MQxFy0",
+            authDomain: "hall-bookings-5a78e.firebaseapp.com",
+            databaseURL: "https://hall-bookings-5a78e.firebaseio.com",
+            projectId: "hall-bookings-5a78e",
+            storageBucket: "hall-bookings-5a78e.appspot.com",
+            messagingSenderId: "1050429890779",
+            appId: "1:1050429890779:web:d9cc201e5f9057edc9acfe"
+          };
+          
+          // Initialize Firebase
+            if (firebase.apps.length === 0) {
+             firebase.initializeApp({});
+            }   
+            //console.log(firebase);
+            database=firebase.database();
+            var ref=database.ref("user");
+            ref.on("value", gotData,  errData);
+        
+            function gotData(data){
+               users=data.val();  
+               onloading();
+            } 
+
+            function errData(err){
+                console.log("Error!");
+                console.log(err);
+            }
+
+            function onloading(){
+                if(users.arts=="yes"){
+                    user_in="ARTS";
+                    document.getElementById("h2").innerHTML="ARTS";
+                }
+                else if(users.bme=="yes"){
+                    user_in="BME";
+                    document.getElementById("h2").innerHTML="BME";
+                }
+                else if(users.eee=="yes"){
+                    user_in="EEE";
+                    document.getElementById("h2").innerHTML="EEE"; 
+                }
+                else if(users.ece=="yes"){
+                    user_in="ECE";
+                    document.getElementById("h2").innerHTML="ECE";  
+                }
+                else if(users.civil=="yes"){
+                    user_in="CIVIL";
+                    document.getElementById("h2").innerHTML="CIVIL";  
+                }
+                else if(users.it=="yes"){
+                    user_in="IT";
+                    document.getElementById("h2").innerHTML="IT";   
+                }
+                else if(users.cse=="yes"){
+                    user_in="CSE";
+                    document.getElementById("h2").innerHTML="CSE";  
+                }
+                else if(users.mech=="yes"){
+                    user_in="MECH";
+                    document.getElementById("h2").innerHTML="MECH";  
+                }
+            }
+            function sendFeedback(){
+                fname=document.getElementById("first_name").value;
+                lname=document.getElementById("last_name").value;
+                mail=document.getElementById("email").value;
+                content=document.getElementById("comments").value;
+                if(mail=="")
+                    mail="Not provided";
+                if(fname=="" ||  lname=="")
+                    alert("Fill the name fields");
+                else if(content=="" )
+                   alert("Fill out the content as well");
+                else{
+                    alert("Please wait....");
+                Email.send({
+                    Host: "smtp.gmail.com",
+                    Username : "drngpithallbooking@gmail.com",
+                    Password : "hall@ngpit",
+                    To : "drngpithallbooking@gmail.com",
+                    From : "drngpithallbooking@gmail.com",
+                    Subject : "Feedback",
+                    Body : "You got feedback from <b>"+fname+" "+lname+"</b>.<br>Email id- <b>"+mail+"</b><br>Comments - "+content,
+                    }).then(
+                        message => alert("Feedback sent successfully!")
+                    );
+                    document.getElementById("first_name").value="";
+                    document.getElementById("last_name").value="";
+                    document.getElementById("email").value="";
+                    document.getElementById("comments").value="";
+                }
+                
+            }
+
+            function book(){
+                window.location.href="after_login.html";
+            }
+            function myBookings(){
+                window.location.href="my_bookings.html";
+            }
+            function goToIndex(){
+            var db_login= firebase.database().ref("user/");
+            if(user_in=="ARTS")
+              db_login.update({"arts": "no"});
+            else if(user_in=="CSE")
+              db_login.update({"cse": "no"});
+            else if(user_in=="BME")
+              db_login.update({"bme": "no"});
+            else if(user_in=="EEE")
+              db_login.update({"eee": "no"});
+            else if(user_in=="ECE")
+              db_login.update({"ece": "no"});
+            else if(user_in=="CIVIL")
+              db_login.update({"civil": "no"});
+            else if(user_in=="IT")
+              db_login.update({"it": "no"});
+            else if(user_in=="MECH")
+              db_login.update({"mech": "no"});
+            
+            window.location.href="index.html";
+          }
+    </script>
+
+</body>
+</html>

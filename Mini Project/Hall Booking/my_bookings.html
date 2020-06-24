@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>My Booking</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+<link rel="shortcut icon" href="files/images/logoicon.ico" type="image/x-icon" />>
+
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="files/Login/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body style="background-image: url('files/images/bg-01.png');">
+    <div class="limiter">
+		<div class="container-login100" style="background-image: url('files/Login/images/bg-01.png');">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" method="dialog">
+					<span class="login100-form-logo">
+						<img src="files/Login/images/icons/book.png" width=80 height=80>
+					</span>
+
+					<span class="login100-form-title p-b-34 p-t-27">
+						My Bookings
+                    </span>
+                    <center><font color="white">
+                        <span id="print"> 
+                        </span>
+                    </center></font>
+                    <div class="container-login100-form-btn">
+						<button class="login100-form-btn" onclick=backto() name="back">
+							<<-Back
+                        </button>
+						<button class="login100-form-btn" onclick=goToIndex() name="logout">
+							Logout
+						</button>
+                    </div>
+                    </form>
+                    </div>
+                    </div>
+                    </div>
+                
+                    <script src="/__/firebase/7.11.0/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="/__/firebase/7.11.0/firebase-auth.js"></script>
+    <script src="/__/firebase/7.11.0/firebase-firestore.js"></script>
+
+    <script src="/__/firebase/7.11.0/firebase-storage.js"></script>
+    <script src="/__/firebase/7.11.0/firebase-database.js"></script>
+    <script src="/__/firebase/7.11.0/firebase.js"></script>
+
+    <script src="/__/firebase/init.js"></script>
+
+    <script>
+        var database;
+        var users, user_in;
+            var firebaseConfig = {
+            apiKey: "AIzaSyBk3hd5lda2StRTfCWUTaqKDIjB7MQxFy0",
+            authDomain: "hall-bookings-5a78e.firebaseapp.com",
+            databaseURL: "https://hall-bookings-5a78e.firebaseio.com",
+            projectId: "hall-bookings-5a78e",
+            storageBucket: "hall-bookings-5a78e.appspot.com",
+            messagingSenderId: "1050429890779",
+            appId: "1:1050429890779:web:d9cc201e5f9057edc9acfe"
+          };
+          
+          // Initialize Firebase
+            if (firebase.apps.length === 0) {
+             firebase.initializeApp({});
+            }   
+            //console.log(firebase);
+    
+    
+           database=firebase.database();
+            var ref=database.ref("user");
+            ref.on("value", gotData,  errData);
+        
+            function gotData(data){
+               users=data.val();  
+               //console.log(users.bme);
+               findUser();
+            } 
+
+            function gotData1(data){
+               users=data.val();  
+               display();
+            }
+            
+            function errData(err){
+                console.log("Error!");
+                console.log(err);
+            }
+
+            function findUser(){
+                if(users.arts=="yes")
+                    user_in="ARTS";
+                else if(users.bme=="yes")
+                    user_in="BME";
+                else if(users.eee=="yes")
+                    user_in="EEE";
+                else if(users.ece=="yes")
+                    user_in="ECE";
+                else if(users.civil=="yes")
+                    user_in="CIVIL";
+                else if(users.it=="yes")
+                    user_in="IT";
+                else if(users.cse=="yes")
+                    user_in="CSE";
+                else if(users.mech=="yes")
+                    user_in="MECH";
+                
+                var ref1=database.ref(user_in);
+                ref1.on("value", gotData1,  errData);
+            }
+
+            function display(){
+                if(users.conf=="not booked" && users.east=="not booked" && users.west=="not booked")
+                    document.getElementById("print").innerHTML="No Bookings has been done yet! <br><br>";
+                else{
+                    if(users.conf!="not booked"){
+                        document.getElementById("print").innerHTML+=users.conf+" - Conference hall <br><br>";
+                    }
+                    if(users.east!="not booked")
+                        document.getElementById("print").innerHTML+=users.east+" - East Seminar hall <br><br>";
+                    if(users.west!="not booked")
+                        document.getElementById("print").innerHTML+=users.west+" - West Seminar hall <br><br>";
+                    }
+                }
+            function backto(){
+                window.location.href="home.html";
+            }
+            function goToIndex(){
+            var db_login= firebase.database().ref("user/");
+            if(user_in=="ARTS")
+              db_login.update({"arts": "no"});
+            else if(user_in=="CSE")
+              db_login.update({"cse": "no"});
+            else if(user_in=="BME")
+              db_login.update({"bme": "no"});
+            else if(user_in=="EEE")
+              db_login.update({"eee": "no"});
+            else if(user_in=="ECE")
+              db_login.update({"ece": "no"});
+            else if(user_in=="CIVIL")
+              db_login.update({"civil": "no"});
+            else if(user_in=="IT")
+              db_login.update({"it": "no"});
+            else if(user_in=="MECH")
+              db_login.update({"mech": "no"});
+            
+            window.location.href="index.html";
+          }
+    </script>
+    </body>
+</html>

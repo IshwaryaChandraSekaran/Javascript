@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="files/Login/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/fonts/iconic/css/material-design-iconic-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="files/Login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="files/Login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="files/Login/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body style="background-image: url('files/images/bg-01.png');">
+	
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('files/Login/images/bg-01.png');">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" method="dialog">
+                    <span class="login100-form-logo">
+						<i class="zmdi zmdi-landscape"></i>
+					</span>
+
+					<span class="login100-form-title p-b-34 p-t-27">
+						Forgot Password
+					</span>
+
+					<div class="wrap-input100 validate-input" data-validate = "Enter password">
+						<input class="input100" type="password" name="pass" placeholder="New Password" autofocus="true" id="newpwd">
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<input class="input100" type="password" name="pass" placeholder="Confirm Password" id="confirmpwd">
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+					</div>
+
+					<div class="contact100-form-checkbox">
+						<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" onclick="show()">
+						<label class="label-checkbox100" for="ckb1">
+							Show Password
+						</label>
+					</div>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" onclick=clickingOk()>
+							Ok
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+	
+<!--===============================================================================================-->
+	<script src="files/Login/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="files/Login/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="files/Login/vendor/bootstrap/js/popper.js"></script>
+	<script src="files/Login/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="files/Login/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="files/Login/vendor/daterangepicker/moment.min.js"></script>
+	<script src="files/Login/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="files/Login/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+
+
+	<script src="/__/firebase/7.11.0/firebase-app.js"></script>
+
+	<!-- Add Firebase products that you want to use -->
+	<script src="/__/firebase/7.11.0/firebase-auth.js"></script>
+	<script src="/__/firebase/7.11.0/firebase-firestore.js"></script>
+
+	<script src="/__/firebase/7.11.0/firebase-storage.js"></script>
+	<script src="/__/firebase/7.11.0/firebase-database.js"></script>
+	<script src="/__/firebase/7.11.0/firebase.js"></script>
+
+	<script src="/__/firebase/init.js"></script>
+
+
+	<script>
+        var  db_user;
+        var database;
+        document.getElementById("confirmpwd").addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    document.getElementById("ok").click();
+                }
+            });
+            
+            function show(){
+            var y = document.getElementById("newpwd");
+            var z = document.getElementById("confirmpwd");
+
+            if (y.type === "password" || z.type === "password") {
+                y.type = "text";
+                z.type = "text";
+            } else {
+                y.type = "password";
+                z.type = "password";
+            }
+        }
+
+
+            var firebaseConfig = {
+            apiKey: "AIzaSyBk3hd5lda2StRTfCWUTaqKDIjB7MQxFy0",
+            authDomain: "hall-bookings-5a78e.firebaseapp.com",
+            databaseURL: "https://hall-bookings-5a78e.firebaseio.com",
+            projectId: "hall-bookings-5a78e",
+            storageBucket: "hall-bookings-5a78e.appspot.com",
+            messagingSenderId: "1050429890779",
+            appId: "1:1050429890779:web:d9cc201e5f9057edc9acfe"
+          };
+          
+          // Initialize Firebase
+            if (firebase.apps.length === 0) {
+             firebase.initializeApp({});
+            }   
+            //console.log(firebase);
+            database=firebase.database();
+            var ref=database.ref("user");
+            ref.on("value", gotData,  errData);
+        
+            function gotData(data){
+               users=data.val();  
+               //console.log(users.bme);
+            } 
+
+            function errData(err){
+                console.log("Error!");
+                console.log(err);
+            }
+
+            function clickingOk(){
+                db_user= firebase.database().ref("login/")
+                db_login= firebase.database().ref("user/");
+                newp=document.getElementById("newpwd").value;
+                conp=document.getElementById("confirmpwd").value;
+                if(newp!=conp){
+                    window.alert("Password Fields don't match!");
+                }
+                else{
+                    if(users.arts=="yes"){
+                        db_user.update({"arts" : conp});
+                        db_login.update({"arts": "no"});
+                    }
+                    else if(users.bme=="yes"){
+                        db_user.update({"bme" : conp});
+                        db_login.update({"bme": "no"});
+                    }
+                    else if(users.eee=="yes"){
+                        db_user.update({"eee" : conp});
+                        db_login.update({"eee": "no"});
+                    }
+                    else if(users.ece=="yes"){
+                        db_user.update({"ece" : conp});
+                        db_login.update({"ece": "no"});
+                    }
+                    else if(users.civil=="yes"){
+                        db_user.update({"civil" : conp});
+                        db_login.update({"civil": "no"});
+                    }
+                    else if(users.it=="yes"){
+                        db_user.update({"it" : conp});
+                        db_login.update({"it": "no"});
+                    }
+                    else if(users.cse=="yes"){
+                        db_user.update({"cse" : conp});
+                        db_login.update({"cse": "no"});
+                    }
+                    else if(users.mech=="yes"){
+                        db_user.update({"mech" : conp});
+                        db_login.update({"mech": "no"});
+                    }
+                    
+
+                    window.alert("Successfully changed!");
+                    window.location.href="index.html"
+                };
+            }
+        
+</script>
+
+</body>
+</html>
