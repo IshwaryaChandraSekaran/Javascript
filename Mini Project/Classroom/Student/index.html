@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Classroom</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="login/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/vendor/animate/animate.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="login/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/vendor/animsition/css/animsition.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/vendor/select2/select2.min.css">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="login/vendor/daterangepicker/daterangepicker.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="login/css/util.css">
+	<link rel="stylesheet" type="text/css" href="login/css/main.css">
+<!--===============================================================================================-->
+</head>
+<body style="background-color: #666666;">
+	
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<form class="login100-form validate-form" method="dialog">
+					<span class="login100-form-title p-b-43">
+						Login to continue
+					</span>
+					
+					
+					<div class="wrap-input100 validate-input" data-validate = "Valid username is required">
+						<input class="input100" type="text" name="username" id="uname">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Username</span>
+					</div>
+					
+					
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<input class="input100" type="password" id="pwd" name="pass">
+						<span class="focus-input100"></span>
+						<span class="label-input100">Password</span>
+					</div>
+
+					<div class="flex-sb-m w-full p-t-3 p-b-32">
+						<div class="contact100-form-checkbox">
+							<input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me" onclick=show()>
+							<label class="label-checkbox100" for="ckb1">
+								Show password
+							</label>
+						</div>
+
+					</div>
+		
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn" onclick=login()>
+							Login
+						</button>
+					</div>
+					
+				</form>
+
+				<div class="login100-more" style="background-image: url('login/images/bg-01.jpg');">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+
+<!--===============================================================================================-->
+	<script src="login/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="login/vendor/animsition/js/animsition.min.js"></script>
+<!--===============================================================================================-->
+	<script src="login/vendor/bootstrap/js/popper.js"></script>
+	<script src="login/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="login/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="login/vendor/daterangepicker/moment.min.js"></script>
+	<script src="login/vendor/daterangepicker/daterangepicker.js"></script>
+<!--===============================================================================================-->
+	<script src="login/vendor/countdowntime/countdowntime.js"></script>
+<!--===============================================================================================-->
+	<script src="login/js/main.js"></script>
+	
+
+
+	<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.14.5/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+    <script src="/__/firebase/7.14.5/firebase-app.js"></script>
+    <script src="/__/firebase/7.14.5/firebase-functions.js"></script>
+    <script src="/__/firebase/7.14.5/firebase-firestore.js"></script>
+    <script src="/__/firebase/7.14.5/firebase-storage.js"></script>
+    <script src="/__/firebase/7.14.5/firebase-database.js"></script>
+    <script src="/__/firebase/7.14.5/firebase.js"></script>
+
+<script>
+  
+
+  var firebaseConfig = {
+    apiKey: "AIzaSyDN26tF7kYLZfsAr7trJ33iKF2WnmrcNFQ",
+    authDomain: "classroom-d926b.firebaseapp.com",
+    databaseURL: "https://classroom-d926b.firebaseio.com",
+    projectId: "classroom-d926b",
+    storageBucket: "classroom-d926b.appspot.com",
+    messagingSenderId: "53581766578",
+    appId: "1:53581766578:web:db50be48b158b96c880eab"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+	database=firebase.database();
+	var ref=database.ref("login");
+	ref.on("value", gotData,  errData);
+	
+	function gotData(data){
+	   logins=data.val();  
+	}
+	
+	function errData(err){
+		console.log("Error!");
+		console.log(err);
+	}
+    function show(){
+		var x = document.getElementById("pwd");
+		if (x.type === "password") {
+			x.type = "text";
+		} else {
+			x.type = "password";
+		}
+	}
+
+	function login(){
+		uname=document.getElementById("uname").value;
+		pwd=document.getElementById("pwd").value;
+		
+		switch(uname){
+			case "":
+			{
+				window.alert("Fields cannot be empty!");
+				break;
+			}
+			case "a":
+			{
+				if(pwd==logins.a){
+					window.location.href="studhome.html";
+				}
+				else{
+					window.alert("Invalid password");
+				}
+				break;
+			}
+			case "b":
+			{
+				if(pwd==logins.b){
+					window.location.href="studhome.html";                         
+				}
+				else{
+					window.alert("Invalid password");
+				}
+				break;
+			}
+			case "c":
+			{
+				if(pwd==logins.c){
+					window.location.href="studhome.html";
+				}
+				else{
+					window.alert("Invalid password");
+				}
+				break;
+			}
+			default:{
+				window.alert("Invalid Username or Password!");
+			}
+		}
+	}
+
+
+
+</script>
+</body>
+</html>
